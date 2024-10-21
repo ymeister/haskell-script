@@ -7,8 +7,22 @@ let nix-thunk = import ./deps/nix-thunk { inherit pkgs; };
 
     haskell-shebang = import deps.haskell-shebang { pkgs = pkgs; };
 
-in writeScriptBin "haskell-script" ''
-  #!/bin/sh
+in symlinkJoin {
+  name = "haskell-shebang";
+  paths = [
+    (
+      writeScriptBin "haskell-script" ''
+        #!/bin/sh
 
-  exec "${haskell-shebang}/bin/haskell-shebang" shh "$@"
-''
+        exec "${haskell-shebang}/bin/haskell-shebang" shh "$@"
+      ''
+    )
+    (
+      writeScriptBin "haskell-repl" ''
+        #!/bin/sh
+
+        exec "${haskell-shebang}/bin/haskell-repl" shh "$@"
+      ''
+    )
+  ];
+}
