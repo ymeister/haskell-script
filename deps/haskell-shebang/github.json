@@ -1,7 +1,8 @@
 {
   "owner": "ymeister",
   "repo": "haskell-shebang",
+  "branch": "main",
   "private": false,
-  "rev": "3afe7ae8cc0874e3361b1710e4481db5dfdaadf4",
-  "sha256": "1d5shzr083v5q30ira969bfh2z5rks11ba847pbh4ijq6myrvrxq"
+  "rev": "ef89fb4dcaae0fe05a4ca2d8b030c4490fa4b4a8",
+  "sha256": "0q91prr4rfmbq68wylz3pyv4qci0ip9xkb5ayd0wi1nqkl63mjja"
 }
