@@ -1,0 +1,6 @@
+[submodule "deps/nix-shebang"]
+	path = deps/nix-shebang
+	url = git@github.com:ymeister/nix-shebang.git
+[submodule "deps/haskell-prelude"]
+	path = deps/haskell-prelude
+	url = git@github.com:ymeister/haskell-prelude.git

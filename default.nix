@@ -1,27 +1,28 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {}
+, nix-shebang ? import ./deps/nix-shebang { inherit pkgs; }
+, haskell-prelude-src ? ./deps/haskell-prelude
+}:
 
 with pkgs;
 
-let nix-thunk = import ./deps/nix-thunk { inherit pkgs; };
-    deps = with nix-thunk; mapSubdirectories thunkSource ./deps;
-
-    haskell-shebang = import deps.haskell-shebang { pkgs = pkgs; };
+let base = nix-shebang.haskell.nix-haskell;
+    prelude-overlay = haskell-prelude-src + "/overlay/nix-haskell.nix";
 
 in symlinkJoin {
-  name = "haskell-shebang";
+  name = "haskell-script";
   paths = [
     (
       writeScriptBin "haskell-script" ''
         #!/bin/sh
 
-        exec "${haskell-shebang}/bin/haskell-shebang" shh "$@"
+        exec "${base}/bin/nix-haskell-shebang" --opts -O2 -threaded -rtsopts -with-rtsopts=-N --deps shh prelude --module '(import ${prelude-overlay})' "$@"
       ''
     )
     (
       writeScriptBin "haskell-repl" ''
         #!/bin/sh
 
-        exec "${haskell-shebang}/bin/haskell-repl" shh "$@"
+        exec "${base}/bin/nix-haskell-repl" --deps shh prelude --module '(import ${prelude-overlay})' "$@"
       ''
     )
   ];
