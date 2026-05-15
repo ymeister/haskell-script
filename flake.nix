@@ -1,13 +1,10 @@
 {
   inputs = {
-    nix-shebang = {
-      url = "git+file:./deps/nix-shebang?submodules=1";
-    };
+    self.submodules = true;
 
-    haskell-prelude = {
-      url = "git+file:./deps/haskell-prelude?submodules=1";
-      flake = false;
-    };
+    nix-shebang.url = ./deps/nix-shebang;
+
+    haskell-prelude.url = ./deps/haskell-prelude;
 
     nixpkgs.follows = "nix-shebang/nixpkgs";
   };
