@@ -1,5 +1,5 @@
 #!/usr/bin/env nix
-#!nix shell --no-write-lock-file .#default --command sh -c ``haskell-script -- "$@"`` sh
+#!nix shell --no-write-lock-file .?submodules=1#default --command sh -c ``haskell-script -- "$@"`` sh
 
 {-# LANGUAGE NoImplicitPrelude, PackageImports #-}
 {-# LANGUAGE ExtendedDefaultRules #-}

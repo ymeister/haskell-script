@@ -8,7 +8,7 @@ Uses [nix-shebang](https://github.com/ymeister/nix-shebang) for compilation and 
 
 ```haskell
 #!/usr/bin/env nix
-#!nix shell --no-write-lock-file github:ymeister/haskell-script --command sh -c ``haskell-script -- "$@"`` sh
+#!nix shell --no-write-lock-file git+https://github.com/ymeister/haskell-script?submodules=1#default --command sh -c ``haskell-script -- "$@"`` sh
 
 {-# LANGUAGE NoImplicitPrelude, PackageImports #-}
 {-# LANGUAGE ExtendedDefaultRules #-}
