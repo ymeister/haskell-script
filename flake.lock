@@ -424,6 +424,11 @@
     },
     "haskell-prelude": {
       "inputs": {
+        "flake-compat": [
+          "haskell-prelude",
+          "nix-haskell",
+          "flake-compat"
+        ],
         "nix-haskell": "nix-haskell",
         "nixpkgs": [
           "haskell-prelude",
@@ -1022,6 +1027,11 @@
     "nix-shebang": {
       "inputs": {
         "cached-nix-shell": "cached-nix-shell",
+        "flake-compat": [
+          "nix-shebang",
+          "nix-haskell",
+          "flake-compat"
+        ],
         "nix-haskell": "nix-haskell_2",
         "nixpkgs": [
           "nix-shebang",
@@ -1365,6 +1375,10 @@
     },
     "root": {
       "inputs": {
+        "flake-compat": [
+          "nix-shebang",
+          "flake-compat"
+        ],
         "haskell-prelude": "haskell-prelude",
         "nix-shebang": "nix-shebang",
         "nixpkgs": [

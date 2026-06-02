@@ -1,11 +1,17 @@
-{ pkgs ? import <nixpkgs> {}
-, nix-shebang ? import ./deps/nix-shebang { inherit pkgs; }
-, haskell-prelude-src ? ./deps/haskell-prelude
+{ inputs ? (import ./inputs.nix)
+, system ? builtins.currentSystem
+, pkgs ? (import inputs.nixpkgs { inherit system; })
 }:
 
 with pkgs;
 
-let base = nix-shebang.haskell.nix-haskell;
+let nix-shebang-src = inputs.nix-shebang or ./deps/nix-shebang;
+    nix-shebang = import nix-shebang-src { inherit inputs system pkgs; };
+    #
+    haskell-prelude-src = inputs.haskell-prelude or ./deps/haskell-prelude;
+    haskell-prelude = import haskell-prelude-src { inherit inputs system pkgs; };
+    #
+    base = nix-shebang.haskell.nix-haskell;
     prelude-overlay = haskell-prelude-src + "/overlay/nix-haskell.nix";
 
 in symlinkJoin {

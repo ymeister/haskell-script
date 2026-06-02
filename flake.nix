@@ -7,6 +7,7 @@
     haskell-prelude.url = ./deps/haskell-prelude;
 
     nixpkgs.follows = "nix-shebang/nixpkgs";
+    flake-compat.follows = "nix-shebang/flake-compat";
   };
 
   outputs = inputs@{ self, nix-shebang, ... }:
@@ -15,11 +16,7 @@
     in {
       packages = eachSystem (system:
         let pkgs = nixpkgs.legacyPackages.${system};
-            project = pkgs.callPackage ./default.nix {
-              inherit pkgs;
-              nix-shebang = nix-shebang.packages.${system};
-              haskell-prelude-src = inputs.haskell-prelude;
-            };
+            project = pkgs.callPackage ./default.nix { inherit inputs system pkgs; };
         in {
           default = project;
         }
