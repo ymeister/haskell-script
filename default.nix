@@ -114,10 +114,12 @@ in symlinkJoin {
         #!/bin/sh
 
         exec "${base}/bin/nix-haskell-shebang" \
-          --opts -O2 -threaded -rtsopts -with-rtsopts=-N \
+          --opts -O2 -fexpose-all-unfoldings -fspecialise -fspecialise-aggressively -flate-specialise -fcross-module-specialise \
+          --opts -threaded -rtsopts -with-rtsopts=-N \
           --opts ${lib.concatMapStringsSep " " (ext: "-X${ext}") default-extensions} \
           --deps shh prelude \
           --module '(import ${prelude-overlay})' \
+          --module '{ optimizations.all = true; }' \
           "$@"
       ''
     )
